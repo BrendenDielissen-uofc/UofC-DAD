@@ -12,7 +12,7 @@ class LPS331AP(IIOSensor):
     """
 
     def __init__(self):
-        self.super('lps331ap', ['pressure', 'temp'])
+        super().__init__('lps331ap', ['pressure', 'temp'])
 
     def get_temperature(self):
         """ Gets the current internal temperature in Celcius.
