@@ -24,7 +24,7 @@ class IIOSensor:
         self.device = device
         self._ctx = iio.LocalContext()
         self._ctrl = self._ctx.find_device(device)
-        self.channels = [ctrl.find_channel(channel) for channel in channel_names]
+        self.channels = [self._ctrl.find_channel(channel) for channel in channel_names]
 
     def get_channel(self, channel_name):
         """ Returns channel from channel name.
