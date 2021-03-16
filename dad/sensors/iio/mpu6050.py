@@ -1,5 +1,5 @@
 # DAD Packages
-import dad.sensors.iio.iio_sensor.IIOSensor
+from dad.sensors.iio.iio_sensor import IIOSensor
 
 
 # Python Packages
@@ -15,7 +15,7 @@ class MPU6050(IIOSensor):
     """
 
     def __init__(self):
-        self.super(
+        super().__init__(
             'mpu6050',
             ['accel_x', 'accel_y', 'accel_z',
              'anglvel_x', 'anglvel_y', 'anglvel_y',

@@ -1,5 +1,5 @@
 # DAD Packages
-import dad.sensors.iio.iio_sensor.IIOSensor
+from dad.sensors.iio.iio_sensor import IIOSensor
 
 
 # Python Packages
