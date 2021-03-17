@@ -45,5 +45,5 @@ for i in range(20):
     print('read_val: {} voltage: {} raw: {} temperature: {}'.format(
         round(value, 2),
         round(voltage, 2),
-        raw, round(temperature, 1)
+        raw, round(temperature, 1))
     )
