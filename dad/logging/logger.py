@@ -31,10 +31,10 @@ class Logger:
                         '/tmp/logging/{}.txt'.format(sensor.device)
                     data = {
                         'time': str(datetime.datetime.now()),
-                        'data': sensor.get_dict_raw() if raw else sensor.get_dict()
+                        'data': sensor.get_raw_data_dict() if raw else sensor.get_data_dict()
                     }
                     with open(filename, 'a') as log:
-                        log.write(json.dumps(data))
+                        log.write(json.dumps(data)+'\n')
                 time.sleep(5)
             except Exception as e:
                 logging.error(e)

@@ -56,13 +56,13 @@ class LPS331AP(IIOSensor):
         scale = float(self._pressure_chan.attrs['scale'].value)
         return raw_pressure, scale
 
-    def get_dict(self):
+    def get_data_dict(self):
         return {
             'temperature': self.get_temperature(),
             'pressure': self.get_pressure()
         }
 
-    def get_dict_raw(self):
+    def get_raw_data_dict(self):
         raw_temp, offset, temp_scale = self.get_raw_temperature_values()
         raw_pressure, pressure_scale = self.get_raw_pressure_values()
         return {

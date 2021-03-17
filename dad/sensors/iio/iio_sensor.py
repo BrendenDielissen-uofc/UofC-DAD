@@ -40,8 +40,8 @@ class IIOSensor(Sensor):
         """
         return next(channel for channel in self.channels if channel.id == channel_name)
 
-    def get_dict(self):
+    def get_data_dict(self):
         pass
 
-    def get_dict_raw(self):
+    def get_raw_data_dict(self):
         pass

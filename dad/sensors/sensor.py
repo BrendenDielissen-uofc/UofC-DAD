@@ -7,7 +7,7 @@ class Sensor(ABC):
         self.device = device
 
     @abstractmethod
-    def get_dict(self):
+    def get_data_dict(self):
         """ Gets the current sensor data in a dictionary format.
 
         Return:
@@ -16,7 +16,7 @@ class Sensor(ABC):
         pass
 
     @abstractmethod
-    def get_dict_raw(self):
+    def get_raw_data_dict(self):
         """ Gets the current raw sensor data in a dictionary format.
 
         Return:

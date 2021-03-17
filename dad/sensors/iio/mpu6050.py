@@ -60,7 +60,7 @@ class MPU6050(IIOSensor):
         """
         pass
 
-    def get_dict(self):
+    def get_data_dict(self):
         accel_x, accel_y, accel_z = self.get_accel_vector()
         anglvel_x, anglvel_y, anglvel_z = self.get_angle_vector()
         return {
@@ -76,7 +76,7 @@ class MPU6050(IIOSensor):
             }
         }
 
-    def get_dict_raw(self):
+    def get_raw_data_dict(self):
         return {
             'acceleration': {
                 'accel_x': {

@@ -146,13 +146,13 @@ class ProtoBoard(Sensor):
     def _get_sensor_scaling_values(cls, sensor):
         return cls.SENSORS[sensor]['offset'], cls.SENSORS[sensor]['scale_factor']
 
-    def get_dict(self):
+    def get_data_dict(self):
         return {
             'temperature': self.get_temperature(),
             'sense_lines': self.get_sense_line_voltages()
         }
 
-    def get_dict_raw(self):
+    def get_raw_data_dict(self):
         return {
             'temperature': self.get_raw_temperature()['temperature'],
             'sense_lines': self.get_raw_sense_line_voltages()
