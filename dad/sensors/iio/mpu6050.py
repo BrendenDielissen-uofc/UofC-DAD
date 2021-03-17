@@ -53,7 +53,7 @@ class MPU6050(IIOSensor):
         pass
 
     def get_raw_angle_values(self):
-        """ Gets a vector of the current angle values.
+        """ Gets a vector of the current raw angle values.
 
         Returns:
             (:obj:`list` of :obj:`double`): Angle vector (deg) as per ...
