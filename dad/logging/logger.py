@@ -10,14 +10,16 @@ import logging
 
 
 class Logger:
-    """ Logs sensor data from all sensors available to the DAD device.
+    """ Logs sensor data from all sensors available to the DAD device. Sensors must follow the
+    Sensor interface defined in dad.sensors.sensor.
+
     """
 
     def __init__(self):
         logging.basicConfig(format='%(asctime)s:%(levelname)s: %(message)s',
                             filename='/tmp/logging/sensors.log',
                             level=logging.INFO)
-        self.sensors = [LPS331AP()] #, MPU6050(), ProtoBoard()]
+        self.sensors = [LPS331AP(), ProtoBoard()]  # MPU6050()]
         self._RUNNING = True
 
     def logging_proc(self, raw=False):
