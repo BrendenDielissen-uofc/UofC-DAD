@@ -20,23 +20,23 @@ class ProtoBoard(Sensor):
     SENSORS = {
         'temperature': {
             'pin': PINS.AIN4.value,
-            'offset': None,  # Nick & Juj -> store offset and scale factors for the raw voltage values in this dict
-            'scale_factor': None
+            'offset': -50,  # Nick & Juj -> store offset and scale factors for the raw voltage values in this dict
+            'scale_factor': 100
         },
         'vbus': {
             'pin': PINS.AIN6.value,
             'offset': None,
-            'scale_factor': None
+            'scale_factor': 7.9/1.1
         },
         'vehicle': {
             'pin': PINS.AIN2.value,
             'offset': None,
-            'scale_factor': None
+            'scale_factor': 9.87
         },
         'battery': {
             'pin': PINS.AIN0.value,
             'offset': None,
-            'scale_factor': None
+            'scale_factor': 7.9/1.1
         }
     }
 
