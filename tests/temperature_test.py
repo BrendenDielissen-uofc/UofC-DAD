@@ -40,9 +40,10 @@ for i in range(20):
     time.sleep(0.5)
     value = ADC.read(TEMP_SENS)
     voltage = value * 1.8 # 1.8V
+    temperature = (voltage - 0.5) / 0.01
     raw = ADC.read_raw(TEMP_SENS)
-    print('read_val: {} voltage: {} raw: {}'.format(
+    print('read_val: {} voltage: {} raw: {} temperature: {}'.format(
         round(value, 2),
         round(voltage, 2),
-        raw)
+        raw, round(temperature, 1))
     )
