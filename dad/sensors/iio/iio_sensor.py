@@ -1,8 +1,12 @@
+# DAD Packages
+from dad.sensors.sensor import Sensor
 # Python Packages
+from abc import ABC, abstractmethod
 import iio
+from overrides import overrides
 
 
-class IIOSensor:
+class IIOSensor(Sensor):
     """ This is an interface for exposing the functionality of IIO devices.
 
     IIOSensor wraps the Python bindings from the pylibiio library such that they are
@@ -20,8 +24,7 @@ class IIOSensor:
             device (str): Device name.
             channel_names (:obj:`list` of :obj:`str`): Device channel names.
         """
-        self.name = name
-        self.device = device
+        super().__init__(device)
         self._ctx = iio.LocalContext()
         self._ctrl = self._ctx.find_device(device)
         self.channels = [self._ctrl.find_channel(channel) for channel in channel_names]
@@ -36,3 +39,9 @@ class IIOSensor:
             (:obj:`iio.Channel`): The channel.
         """
         return next(channel for channel in self.channels if channel.id == channel_name)
+
+    def get_dict(self):
+        pass
+
+    def get_dict_raw(self):
+        pass

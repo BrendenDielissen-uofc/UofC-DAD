@@ -1,2 +1,0 @@
-# DAD Packages
-# Python Packages
