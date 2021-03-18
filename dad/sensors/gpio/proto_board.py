@@ -20,22 +20,22 @@ class ProtoBoard(Sensor):
     SENSORS = {
         'temperature': {
             'pin': PINS.AIN4.value,
-            'offset': -50,  # Nick & Juj -> store offset and scale factors for the raw voltage values in this dict
+            'offset': -50,
             'scale_factor': 100
         },
         'vbus': {
             'pin': PINS.AIN6.value,
-            'offset': None,
+            'offset': 0,
             'scale_factor': 7.9 / 1.1
         },
         'vehicle': {
             'pin': PINS.AIN2.value,
-            'offset': None,
+            'offset': 0,
             'scale_factor': 9.87
         },
         'battery': {
             'pin': PINS.AIN0.value,
-            'offset': None,
+            'offset': 0,
             'scale_factor': 7.9 / 1.1
         }
     }
@@ -55,9 +55,11 @@ class ProtoBoard(Sensor):
         """
         temperature_raw_values = self.get_raw_temperature()
         temp_offset, temp_scaling_factor = self._get_sensor_scaling_values('temperature')
-
-        # Nick & Juj -> do calculations here to get useful values for current temperature.
-        current_temperature = -100.00
+        temperature_voltage_value = temperature_raw_values['scaled']
+        
+        # Nick & Juj - This is completed.
+        # Equation follows a simple y = mx + b formula.
+        current_temperature = temp_scaling_factor * temperature_voltage_value + temp_offset
 
         return round(current_temperature, rounding)
 
@@ -78,18 +80,23 @@ class ProtoBoard(Sensor):
         raw_sense_line_readings = self.get_raw_sense_line_voltages()
         vbus_raw_values = raw_sense_line_readings['vbus']
         vbus_offset, vbus_scale_factor = self._get_sensor_scaling_values('vbus')
+        vbus_voltage_value = vbus_raw_values['scaled']
 
         vehicle_raw_values = raw_sense_line_readings['vehicle']
         vehicle_offset, vehicle_scale_factor = self._get_sensor_scaling_values('vehicle')
+        vehicle_voltage_value = vehicle_raw_values['scaled']
 
         battery_raw_values = raw_sense_line_readings['battery']
         battery_offset, battery_scale_factor = self._get_sensor_scaling_values('battery')
+        battery_voltage_value = battery_raw_values['scaled']
 
-        # Nick & Juj -> do calculations here to get useful values.
+        # Nick & Juj -> This is complete.
+        # y = mx + b (although b in this case is always = 0)
 
-        vbus = 1.8
-        vehicle = 1.8
-        battery = 1.8
+        vbus = vbus_scale_factor * vbus_voltage_value + vbus_offset
+        vehicle = vehicle_scale_factor * vehicle_voltage_value + vehicle_offset
+        battery = battery_scale_factor * battery_voltage_value + battery_offset
+        
         return {
             'vbus': vbus,
             'vehicle': vehicle,
