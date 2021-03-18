@@ -1,8 +1,8 @@
+# Python Packages
+import Adafruit_BBIO.ADC as ADC
 # DAD Packages
 from dad.sensors.sensor import Sensor
 from dad.sensors.gpio.pins import PINS
-# Python Packages
-import Adafruit_BBIO.ADC as ADC
 
 
 class ProtoBoard(Sensor):
@@ -26,7 +26,7 @@ class ProtoBoard(Sensor):
         'vbus': {
             'pin': PINS.AIN6.value,
             'offset': None,
-            'scale_factor': 7.9/1.1
+            'scale_factor': 7.9 / 1.1
         },
         'vehicle': {
             'pin': PINS.AIN2.value,
@@ -36,7 +36,7 @@ class ProtoBoard(Sensor):
         'battery': {
             'pin': PINS.AIN0.value,
             'offset': None,
-            'scale_factor': 7.9/1.1
+            'scale_factor': 7.9 / 1.1
         }
     }
 

@@ -1,6 +1,5 @@
 # DAD Packages
 from dad.sensors.iio.iio_sensor import IIOSensor
-# Python Packages
 
 
 class LPS331AP(IIOSensor):

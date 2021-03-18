@@ -1,11 +1,11 @@
-# DAD Packages
-from dad.fsm.dad_fsm import DADFSM
-from dad.fsm.led_fsm import LedFSM
 # Python Packages
 import time
 import speedtest
 import logging
 from statemachine import State
+# DAD Packages
+from dad.fsm.dad_fsm import DADFSM
+from dad.fsm.led_fsm import LedFSM
 
 
 class InternetFSM(DADFSM):
@@ -13,7 +13,9 @@ class InternetFSM(DADFSM):
     download speed, slowly blinking when the internet speed is good, really slowly blinking when the internet speed is bad, and
     off when there is no internet available.
 
-    https://github.com/sivel/speedtest-cli/wiki
+    .. _Speedtest-Cli
+        https://github.com/sivel/speedtest-cli/wiki
+
     """
 
     # Define states

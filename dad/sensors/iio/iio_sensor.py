@@ -1,7 +1,7 @@
-# DAD Packages
-from dad.sensors.sensor import Sensor
 # Python Packages
 import iio
+# DAD Packages
+from dad.sensors.sensor import Sensor
 
 
 class IIOSensor(Sensor):

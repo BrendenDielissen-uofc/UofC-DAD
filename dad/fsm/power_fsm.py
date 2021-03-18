@@ -1,11 +1,11 @@
-# DAD Packages
-from dad.fsm.dad_fsm import DADFSM
-from dad.fsm.led_fsm import LedFSM
-from dad.sensors.gpio.proto_board import ProtoBoard
 # Python Packages
 import time
 import logging
 from statemachine import State
+# DAD Packages
+from dad.fsm.dad_fsm import DADFSM
+from dad.fsm.led_fsm import LedFSM
+from dad.sensors.gpio.proto_board import ProtoBoard
 
 
 class PowerFSM(DADFSM):

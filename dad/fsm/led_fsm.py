@@ -1,8 +1,8 @@
-# DAD Package
-from dad.sensors.gpio.pins import PINS
 # Python Package
 import Adafruit_BBIO.GPIO as GPIO
 from statemachine import StateMachine, State
+# DAD Package
+from dad.sensors.gpio.pins import PINS
 
 
 class LedFSM(StateMachine):

@@ -1,12 +1,12 @@
-# DAD Packages
-from dad.sensors.iio.lps331ap import LPS331AP
-from dad.sensors.iio.mpu6050 import MPU6050
-from dad.sensors.gpio.proto_board import ProtoBoard
 # Python Packages
 import datetime
 import time
 import json
 import logging
+# DAD Packages
+from dad.sensors.iio.lps331ap import LPS331AP
+from dad.sensors.iio.mpu6050 import MPU6050
+from dad.sensors.gpio.proto_board import ProtoBoard
 
 
 class Logger:
