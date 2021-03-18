@@ -22,7 +22,13 @@ class Logger:
         self.sensors = [LPS331AP(), ProtoBoard()]  # MPU6050()]
         self._RUNNING = True
 
-    def logging_proc(self, raw=False):
+    def logging_proc(self, logging_frequency=5, raw=False):
+        """ Sensor logging loop.
+
+        Args:
+            logging_frequency (int): Frequency that sensors will be polled at.
+            raw (bool): Indicates whether the data will be the raw values or not.
+        """
         logging.info("Sensor logging started.")
         while self._RUNNING:
             try:
@@ -34,8 +40,8 @@ class Logger:
                         'data': sensor.get_raw_data_dict() if raw else sensor.get_data_dict()
                     }
                     with open(filename, 'a') as log:
-                        log.write(json.dumps(data)+'\n')
-                time.sleep(5)
+                        log.write(json.dumps(data) + '\n')
+                time.sleep(logging_frequency)
             except Exception as e:
                 logging.error(e)
                 self._RUNNING = False

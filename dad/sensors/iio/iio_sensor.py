@@ -1,9 +1,7 @@
 # DAD Packages
 from dad.sensors.sensor import Sensor
 # Python Packages
-from abc import ABC, abstractmethod
 import iio
-from overrides import overrides
 
 
 class IIOSensor(Sensor):

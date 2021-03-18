@@ -8,5 +8,5 @@ setup(
     license='',
     author='brenden.dielissen',
     author_email='brenden.dielissen@ucalgary.ca',
-    description='Project DAD package', install_requires=['overrides', 'iio']
+    description='Project DAD package', install_requires=['overrides', 'iio', 'statemachine', 'speedtest']
 )

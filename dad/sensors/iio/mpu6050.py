@@ -1,7 +1,6 @@
 # DAD Packages
 from dad.sensors.iio.iio_sensor import IIOSensor
 # Python Packages
-from overrides import overrides
 
 
 class MPU6050(IIOSensor):
