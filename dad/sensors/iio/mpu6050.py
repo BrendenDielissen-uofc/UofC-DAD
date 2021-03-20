@@ -1,3 +1,5 @@
+# Python Packages
+import itertools
 # DAD Packages
 from dad.sensors.iio.iio_sensor import IIOSensor
 
@@ -73,6 +75,16 @@ class MPU6050(IIOSensor):
                 'anglvel_z': anglvel_z
             }
         }
+
+    def _decode_matrix_values(self, matrix_str):
+        split = [sub.split(',') for sub in matrix_str.split(';')]
+        for i, row in enumerate(split):
+            for j, ax in enumerate(row):
+                split[i][j] = int(ax.strip())
+        return split
+
+    def _decode_scale_available_values(self, scale_available_str):
+        return [float(ax) for ax in scale_available_str.split()]
 
     def get_raw_data_dict(self):
         return {
