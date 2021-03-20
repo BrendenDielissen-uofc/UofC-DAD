@@ -57,10 +57,8 @@ class ProtoBoard(Sensor):
         temp_offset, temp_scaling_factor = self._get_sensor_scaling_values('temperature')
         temperature_voltage_value = temperature_raw_values['scaled']
         
-        # Nick & Juj - This is completed.
         # Equation follows a simple y = mx + b formula.
         current_temperature = temp_scaling_factor * temperature_voltage_value + temp_offset
-
         return round(current_temperature, rounding)
 
     def get_sense_line_voltages(self, rounding=2):
@@ -90,17 +88,11 @@ class ProtoBoard(Sensor):
         battery_offset, battery_scale_factor = self._get_sensor_scaling_values('battery')
         battery_voltage_value = battery_raw_values['scaled']
 
-        # Nick & Juj -> This is complete.
         # y = mx + b (although b in this case is always = 0)
-
-        vbus = vbus_scale_factor * vbus_voltage_value + vbus_offset
-        vehicle = vehicle_scale_factor * vehicle_voltage_value + vehicle_offset
-        battery = battery_scale_factor * battery_voltage_value + battery_offset
-        
         return {
-            'vbus': vbus,
-            'vehicle': vehicle,
-            'battery': battery
+            'vbus': vbus_scale_factor * vbus_voltage_value + vbus_offset,
+            'vehicle': vehicle_scale_factor * vehicle_voltage_value + vehicle_offset,
+            'battery': battery_scale_factor * battery_voltage_value + battery_offset
         }
 
     def get_raw_sense_line_voltages(self):
