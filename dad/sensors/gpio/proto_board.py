@@ -55,7 +55,7 @@ class ProtoBoard(Sensor):
         """
         temperature_raw_values = self.get_raw_temperature()
         temp_offset, temp_scaling_factor = self._get_sensor_scaling_values('temperature')
-        temperature_voltage_value = temperature_raw_values['scaled']
+        temperature_voltage_value = temperature_raw_values['temperature']['scaled']
         
         # Equation follows a simple y = mx + b formula.
         current_temperature = temp_scaling_factor * temperature_voltage_value + temp_offset
@@ -76,23 +76,21 @@ class ProtoBoard(Sensor):
                 }
         """
         raw_sense_line_readings = self.get_raw_sense_line_voltages()
-        vbus_raw_values = raw_sense_line_readings['vbus']
+
         vbus_offset, vbus_scale_factor = self._get_sensor_scaling_values('vbus')
-        vbus_voltage_value = vbus_raw_values['scaled']
+        vbus_voltage_value = raw_sense_line_readings['vbus']['scaled']
 
-        vehicle_raw_values = raw_sense_line_readings['vehicle']
         vehicle_offset, vehicle_scale_factor = self._get_sensor_scaling_values('vehicle')
-        vehicle_voltage_value = vehicle_raw_values['scaled']
+        vehicle_voltage_value = raw_sense_line_readings['vehicle']['scaled']
 
-        battery_raw_values = raw_sense_line_readings['battery']
         battery_offset, battery_scale_factor = self._get_sensor_scaling_values('battery')
-        battery_voltage_value = battery_raw_values['scaled']
+        battery_voltage_value = raw_sense_line_readings['battery']['scaled']
 
         # y = mx + b (although b in this case is always = 0)
         return {
-            'vbus': vbus_scale_factor * vbus_voltage_value + vbus_offset,
-            'vehicle': vehicle_scale_factor * vehicle_voltage_value + vehicle_offset,
-            'battery': battery_scale_factor * battery_voltage_value + battery_offset
+            'vbus': round(vbus_scale_factor * vbus_voltage_value + vbus_offset, rounding),
+            'vehicle': round(vehicle_scale_factor * vehicle_voltage_value + vehicle_offset, rounding),
+            'battery': round(battery_scale_factor * battery_voltage_value + battery_offset, rounding)
         }
 
     def get_raw_sense_line_voltages(self):
