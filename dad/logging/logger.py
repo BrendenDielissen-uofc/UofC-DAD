@@ -19,7 +19,7 @@ class Logger:
         logging.basicConfig(format='%(asctime)s:%(levelname)s: %(message)s',
                             filename='/tmp/logging/sensors.log',
                             level=logging.INFO)
-        self.sensors = [LPS331AP(), ProtoBoard()]  # MPU6050()]
+        self.sensors = [LPS331AP(), ProtoBoard(), MPU6050()]
         self._RUNNING = True
 
     def logging_proc(self, logging_frequency=5, raw=False):

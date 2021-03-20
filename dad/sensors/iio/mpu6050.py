@@ -17,7 +17,7 @@ class MPU6050(IIOSensor):
         super().__init__(
             'mpu6050',
             ['accel_x', 'accel_y', 'accel_z',
-             'anglvel_x', 'anglvel_y', 'anglvel_y',
+             'anglvel_x', 'anglvel_y', 'anglvel_z',
              'gyro', 'temp'])
         self._accel_x_chan = self.get_channel('accel_x')
         self._accel_y_chan = self.get_channel('accel_y')
@@ -51,7 +51,8 @@ class MPU6050(IIOSensor):
         angle_x_scale = float(self._anglvel_x_chan.attrs['scale'].value)
         angle_y_scale = float(self._anglvel_y_chan.attrs['scale'].value)
         angle_z_scale = float(self._anglvel_z_chan.attrs['scale'].value)
-        angle_vector = [raw_angle_x * angle_x_scale * 57.2958, raw_angle_y * angle_y_scale * 57.2958, raw_angle_z * angle_z_scale * 57.2958]
+        angle_vector = [raw_angle_x * angle_x_scale * 57.2958, raw_angle_y * angle_y_scale * 57.2958,
+                        raw_angle_z * angle_z_scale * 57.2958]
         return angle_vector
 
     def get_raw_accel_values(self):
@@ -115,7 +116,8 @@ class MPU6050(IIOSensor):
                     'mount_matrix': self._decode_matrix_values(self._accel_x_chan.attrs['mount_matrix'].value),
                     'raw': raw_accel_x,
                     'scale': float(self._accel_x_chan.attrs['scale'].value),
-                    'scale_available': self._decode_scale_available_values(self._accel_x_chan.attrs['scale_available'].value)
+                    'scale_available': self._decode_scale_available_values(
+                        self._accel_x_chan.attrs['scale_available'].value)
                 },
                 'accel_y': {
                     'calibbias': float(self._accel_y_chan.attrs['calibbias'].value),
@@ -123,7 +125,8 @@ class MPU6050(IIOSensor):
                     'mount_matrix': self._decode_matrix_values(self._accel_y_chan.attrs['mount_matrix'].value),
                     'raw': raw_accel_y,
                     'scale': float(self._accel_y_chan.attrs['scale'].value),
-                    'scale_available': self._decode_scale_available_values(self._accel_y_chan.attrs['scale_available'].value)
+                    'scale_available': self._decode_scale_available_values(
+                        self._accel_y_chan.attrs['scale_available'].value)
                 },
                 'accel_z': {
                     'calibbias': float(self._accel_z_chan.attrs['calibbias'].value),
@@ -131,7 +134,8 @@ class MPU6050(IIOSensor):
                     'mount_matrix': self._decode_matrix_values(self._accel_z_chan.attrs['mount_matrix'].value),
                     'raw': raw_accel_z,
                     'scale': float(self._accel_z_chan.attrs['scale'].value),
-                    'scale_available': self._decode_scale_available_values(self._accel_z_chan.attrs['scale_available'].value)
+                    'scale_available': self._decode_scale_available_values(
+                        self._accel_z_chan.attrs['scale_available'].value)
                 }
             },
             'anglvel': {
@@ -140,25 +144,28 @@ class MPU6050(IIOSensor):
                     'mount_matrix': self._decode_matrix_values(self._anglvel_x_chan.attrs['mount_matrix'].value),
                     'raw': raw_angle_x,
                     'scale': float(self._anglvel_x_chan.attrs['scale'].value),
-                    'scale_available': self._decode_scale_available_values(self._anglvel_x_chan.attrs['scale_available'].value)
+                    'scale_available': self._decode_scale_available_values(
+                        self._anglvel_x_chan.attrs['scale_available'].value)
                 },
                 'anglvel_y': {
                     'calibbias': float(self._anglvel_y_chan.attrs['calibbias'].value),
                     'mount_matrix': self._decode_matrix_values(self._anglvel_y_chan.attrs['mount_matrix'].value),
                     'raw': raw_angle_y,
                     'scale': float(self._anglvel_y_chan.attrs['scale'].value),
-                    'scale_available': self._decode_scale_available_values(self._anglvel_y_chan.attrs['scale_available'].value)
+                    'scale_available': self._decode_scale_available_values(
+                        self._anglvel_y_chan.attrs['scale_available'].value)
                 },
                 'anglvel_z': {
                     'calibbias': float(self._anglvel_z_chan.attrs['calibbias'].value),
                     'mount_matrix': self._decode_matrix_values(self._anglvel_z_chan.attrs['mount_matrix'].value),
                     'raw': raw_angle_z,
                     'scale': float(self._anglvel_z_chan.attrs['scale'].value),
-                    'scale_available': self._decode_scale_available_values(self._anglvel_z_chan.attrs['scale_available'].value)
+                    'scale_available': self._decode_scale_available_values(
+                        self._anglvel_z_chan.attrs['scale_available'].value)
                 }
             },
             'gyro': {
-                'matrix': self._decode_matrix_values(self._gyro_chan.attrs['matrix'].values)
+                'matrix': self._decode_matrix_values(self._gyro_chan.attrs['matrix'].value)
             },
             'temp': {
                 'offset': float(self._temp_chan.attrs['offset'].value),
