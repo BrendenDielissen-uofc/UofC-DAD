@@ -30,7 +30,7 @@ class MPU6050(IIOSensor):
         """ Gets a vector of the current acceleration values.
 
         Returns:
-            (:obj:`list` of :obj:`double`): Acceleration vector (g) as per [x, y, z].
+            (:obj:`list` of :obj:`float`): Acceleration vector (g) as per [x, y, z].
         """
         raw_accel_x, raw_accel_y, raw_accel_z = self.get_raw_accel_values()
         accel_x_scale = float(self._accel_x_chan.attrs['scale'].value)
@@ -43,7 +43,7 @@ class MPU6050(IIOSensor):
         """ Gets a vector of the current angle values.
 
         Returns:
-            (:obj:`list` of :obj:`double`): Angle vector (deg) as per ...
+            (:obj:`list` of :obj:`float`): Angle vector (deg) as per ...
         """
         raw_angle_x, raw_angle_y, raw_angle_z = self.get_raw_angle_values()
         angle_x_scale = float(self._anglvel_x_chan.attrs['scale'].value)
@@ -56,7 +56,7 @@ class MPU6050(IIOSensor):
         """ Gets a vector of the current raw acceleration values.
 
         Returns:
-            (:obj:`list` of :obj:`double`): Acceleration values as per ...
+            (:obj:`list` of :obj:`float`): Acceleration values as per ...
         """
         raw_accel_x = float(self._accel_x_chan.attrs['raw'].value)
         raw_accel_y = float(self._accel_y_chan.attrs['raw'].value)
@@ -68,7 +68,7 @@ class MPU6050(IIOSensor):
         """ Gets a vector of the current raw angle values.
 
         Returns:
-            (:obj:`list` of :obj:`double`): Angle values (rad) as per ...
+            (:obj:`list` of :obj:`float`): Angle values (rad) as per ...
         """
         raw_angle_x = float(self._anglvel_x_chan.attrs['raw'].value)
         raw_angle_y = float(self._anglvel_y_chan.attrs['raw'].value)
