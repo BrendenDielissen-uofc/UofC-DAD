@@ -32,7 +32,7 @@ class PINS(Enum):
 
 
 LED1 = PINS.GPIO0_26.value
-LED2 = PINS.GPIO1_29.value
+LED2 = PINS.GPIO1_13.value
 print("LED1 on pin: {}".format(LED1))
 print("LED2 on pin: {}".format(LED2))
 input('\nCheck that pins are correct, then hit enter to continue...')
