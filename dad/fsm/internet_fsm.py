@@ -19,10 +19,18 @@ class InternetFSM(DADFSM):
     """
 
     # Define states
-    # Example: weak = State('Strong', initial=True)
+    strong = State('Strong', initial=True)
+    good = State('Good')
+    weak = State('Weak')
+    off = State('Off')
 
     # Define state transitions
-    # Example: weak_to_good = weak.to(good)
+    strong_to_good = strong.to(good)
+    good_to_strong = good.to(strong)
+    good_to_weak = good.to(weak)
+    weak_to_good = weak.to(good)
+    weak_to_off = weak.to(off)
+    off_to_weak = off.to(weak)
 
     def __init__(self):
         super().__init__()
@@ -32,12 +40,41 @@ class InternetFSM(DADFSM):
         self._led = LedFSM(LedFSM.INTERNET_STATUS_LED_PIN)
         self._speed_test = speedtest.Speedtest()
 
-    # Example state transition action
-    # def on_weak_to_good(self):
-    #     """ State transition action, automatically called on weak to good transition.
-    #
-    #     """
-    #     logging.info("Internet connection improvement.")
+    def on_strong_to_good(self):
+        """ State transition action, automatically called on strong to good transition.
+
+        """
+        logging.warning("Internet connection reduction (strong to good connection).")
+
+    def on_good_to_strong(self):
+        """ State transition action, automatically called on good to strong transition.
+
+        """
+        logging.warning("Internet connection improvement (good to strong connection).")
+
+    def on_good_to_weak(self):
+        """ State transition action, automatically called on good to weak transition.
+
+        """
+        logging.warning("Internet connection reduction (good to weak connection).")
+
+    def on_weak_to_good(self):
+        """ State transition action, automatically called on weak to good transition.
+
+        """
+        logging.warning("Internet connection improvement (weak to good connection).")
+
+    def on_weak_to_off(self):
+        """ State transition action, automatically called on weak to off transition.
+
+        """
+        logging.warning("Internet connection reduction (Weak to no connection).")
+
+    def on_off_to_weak(self):
+        """ State transition action, automatically called on weak to off transition.
+
+        """
+        logging.warning("Internet connection improvement (no connection to weak).")
 
     def fetch_input(self):
         try:
@@ -48,12 +85,36 @@ class InternetFSM(DADFSM):
         return internet_speed
 
     def handle_transitions(self, input):
-        # Handling transitions between states
-        pass
+        if self.is_strong and input <= 25000:
+            self.strong_to_good()
+        elif self.is_good:
+            if input >= 25000:
+                self.good_to_strong()
+            elif input <= 9000:
+                self.good_to_weak()
+        elif self.is_weak:
+            if input >= 9000:
+                self.weak_to_good()
+            elif input == 0:
+                self.weak_to_bad()
+        elif self.is_off and input >= 0:
+            self.off_to_weak()
 
     def handle_state_action(self):
-        # Blink LED's according to specific state
-        pass
+        if self.is_strong:
+            if self._led.is_low:
+                self._led.low_to_high()
+            time.sleep(2)
+        elif self.is_good:
+            self._led.toggle()
+            time.sleep(1)
+        elif self.is_weak:
+            self._led.toggle()
+            time.sleep(3)
+        elif self.is_off:
+            if self._led.is_high:
+                self._led.high_to_low()
+            time.sleep(2)
 
     def cleanup(self):
         try:
