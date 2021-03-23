@@ -23,10 +23,7 @@ class PowerFSM(DADFSM):
     battery_to_full = battery.to(full)
 
     def __init__(self):
-        super().__init__()
-        logging.basicConfig(format='%(asctime)s:%(levelname)s: %(message)s',
-                            filename='/tmp/logging/power_status.log',
-                            level=logging.WARNING)
+        super().__init__('/home/dad003/logging/power_status.log')
         self._proto_board = ProtoBoard()
         self._led = LedFSM(LedFSM.POWER_LED_PIN)
 
@@ -41,6 +38,10 @@ class PowerFSM(DADFSM):
 
         """
         logging.warning("Power status transitioning to fully powered.")
+
+    def run(self, transition_frequency=2):
+        logging.info("Starting Power FSM...")
+        super().run()
 
     def fetch_input(self):
         voltage_values = self._proto_board.get_raw_sense_line_voltages()

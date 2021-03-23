@@ -19,10 +19,10 @@ class InternetFSM(DADFSM):
     """
 
     # Define states
-    strong = State('Strong', initial=True)
+    strong = State('Strong')
     good = State('Good')
     weak = State('Weak')
-    off = State('Off')
+    off = State('Off', initial=True)
 
     # Define state transitions
     strong_to_good = strong.to(good)
@@ -33,10 +33,7 @@ class InternetFSM(DADFSM):
     off_to_weak = off.to(weak)
 
     def __init__(self):
-        super().__init__()
-        logging.basicConfig(format='%(asctime)s:%(levelname)s: %(message)s',
-                            filename='/tmp/logging/internet_status.log',
-                            level=logging.WARNING)
+        super().__init__('/home/dad003/logging/internet_status.log')
         self._led = LedFSM(LedFSM.INTERNET_STATUS_LED_PIN)
         self._speed_test = speedtest.Speedtest()
 
@@ -76,6 +73,10 @@ class InternetFSM(DADFSM):
         """
         logging.warning("Internet connection improvement (no connection to weak).")
 
+    def run(self, transition_frequency=2):
+        logging.info("Starting Internet FSM...")
+        super().run()
+
     def fetch_input(self):
         try:
             internet_speed = self._speed_test.download()  # internet speed in bit/s
@@ -96,7 +97,7 @@ class InternetFSM(DADFSM):
             if input >= 9000:
                 self.weak_to_good()
             elif input == 0:
-                self.weak_to_bad()
+                self.weak_to_off()
         elif self.is_off and input >= 0:
             self.off_to_weak()
 
@@ -110,7 +111,7 @@ class InternetFSM(DADFSM):
             time.sleep(1)
         elif self.is_weak:
             self._led.toggle()
-            time.sleep(3)
+            time.sleep(2)
         elif self.is_off:
             if self._led.is_high:
                 self._led.high_to_low()
@@ -126,4 +127,4 @@ class InternetFSM(DADFSM):
 
 if __name__ == '__main__':
     internet_indicator = InternetFSM()
-    internet_indicator.run()
+    internet_indicator.debug_run()

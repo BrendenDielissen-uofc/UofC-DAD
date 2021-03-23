@@ -17,7 +17,7 @@ class Logger:
 
     def __init__(self):
         logging.basicConfig(format='%(asctime)s:%(levelname)s: %(message)s',
-                            filename='/tmp/logging/sensors.log',
+                            filename='/home/dad003/logging/sensors.log',
                             level=logging.INFO)
         self.sensors = [LPS331AP(), ProtoBoard(), MPU6050()]
         self._RUNNING = True
@@ -33,8 +33,8 @@ class Logger:
         while self._RUNNING:
             try:
                 for sensor in self.sensors:
-                    filename = '/tmp/logging/{}_raw.txt'.format(sensor.device) if raw else \
-                        '/tmp/logging/{}.txt'.format(sensor.device)
+                    filename = '/home/dad003/logging/{}_raw.txt'.format(sensor.device) if raw else \
+                        '/home/dad003/logging/{}.txt'.format(sensor.device)
                     data = {
                         'time': str(datetime.datetime.now()),
                         'data': sensor.get_raw_data_dict() if raw else sensor.get_data_dict()
