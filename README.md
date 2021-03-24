@@ -1,7 +1,7 @@
 # UofC-DAD
 Repository for Project DAD related scripts/packages and more.
 
-DAD - M
+DAD - FSM
 - The FSM module within the DAD package contains the state machine implementations that are constantly running in background Cron jobs
 on the DAD's BeagleBone Black Enhanced.
 - "dad_fsm.py" is the base class that implements the state machine loop within its "run" method, which is described simply in
