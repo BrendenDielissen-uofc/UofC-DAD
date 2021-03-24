@@ -35,3 +35,5 @@ DAD - Sensors
 - The Sensor interface, within "sensor.py", is intended to describe a format that the Logger, within "dad.logging.logger.py", will expect to log, and thus allows
 future engineers to easily add/customize/remove sensor functionality as necessary. 
 
+To be added...
+- Software installation guide and/or setup script that can be ran to download and install all necessary packages, as well as configure the device software as necessary. 
