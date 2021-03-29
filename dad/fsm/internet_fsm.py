@@ -1,7 +1,7 @@
 # Python Packages
 import time
-import speedtest
 import logging
+import speedtest
 from statemachine import State
 # DAD Packages
 from dad.fsm.dad_fsm import DADFSM
@@ -36,6 +36,7 @@ class InternetFSM(DADFSM):
         super().__init__('/home/dad003/logging/internet_status.log')
         self._led = LedFSM(LedFSM.INTERNET_STATUS_LED_PIN)
         self._speed_test = speedtest.Speedtest()
+        self._speed_test.get_best_server()
 
     def on_strong_to_good(self):
         """ State transition action, automatically called on strong to good transition.
@@ -79,9 +80,9 @@ class InternetFSM(DADFSM):
 
     def fetch_input(self):
         try:
-            internet_speed = self._speed_test.download()  # internet speed in bit/s
+            internet_speed = self._speed_test.download(threads=1)  # internet speed in bit/s
         except Exception as e:
-            logging.warning(e)
+            logging.error(e)
             internet_speed = 0
         return internet_speed
 
@@ -127,4 +128,4 @@ class InternetFSM(DADFSM):
 
 if __name__ == '__main__':
     internet_indicator = InternetFSM()
-    internet_indicator.debug_run()
+    internet_indicator.run()
