@@ -1,6 +1,8 @@
 # UofC-DAD
 Repository for Project DAD related scripts/packages and more.
 
+![](DAD.gif)
+
 DAD - FSM
 - The FSM module within the DAD package contains the state machine implementations that are constantly running in background Cron jobs
 on the DAD's BeagleBone Black Enhanced.
